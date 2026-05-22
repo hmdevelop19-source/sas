@@ -19,11 +19,12 @@ class DatabaseSeeder extends Seeder
         // Kuartal
         $q1 = \App\Models\Kuartal::create(['name' => 'Q1 2026/2027', 'start_date' => '2026-07-01', 'end_date' => '2026-09-30', 'is_active' => true]);
 
-        // Wilayah
-        $prov = \App\Models\Province::create(['code' => '32', 'name' => 'JAWA BARAT']);
-        $reg = \App\Models\Regency::create(['province_id' => $prov->id, 'code' => '3273', 'name' => 'KOTA BANDUNG']);
-        $dist = \App\Models\District::create(['regency_id' => $reg->id, 'code' => '327301', 'name' => 'SUKASARI']);
-        $vill = \App\Models\Village::create(['district_id' => $dist->id, 'code' => '3273011001', 'name' => 'GEGERKALONG']);
+        // Menjalankan Seeder Master Wilayah (Download & Parse ~83rb data)
+        $this->call(WilayahSeeder::class);
+
+        // Mengambil salah satu data wilayah yang baru disinkronisasi (misal: Gegerkalong, Kota Bandung)
+        $vill = \App\Models\Village::where('name', 'Gegerkalong')->first() 
+                ?? \App\Models\Village::first();
 
         // Pendidikan & Pekerjaan
         $eduS1 = \App\Models\Education::create(['name' => 'S1 / D4']);
