@@ -19,4 +19,10 @@ Route::prefix('v1')->group(function () {
 
     // Utils
     Route::get('/utils/parse-nik', [\App\Http\Controllers\Api\NikController::class, 'parse']);
+
+    // Region API
+    Route::get('/regions/provinces', [\App\Http\Controllers\Api\RegionController::class, 'provinces']);
+    Route::get('/regions/regencies/{provinceCode}', [\App\Http\Controllers\Api\RegionController::class, 'regencies']);
+    Route::get('/regions/districts/{regencyCode}', [\App\Http\Controllers\Api\RegionController::class, 'districts']);
+    Route::get('/regions/villages/{districtCode}', [\App\Http\Controllers\Api\RegionController::class, 'villages']);
 });

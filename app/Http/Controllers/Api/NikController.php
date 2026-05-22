@@ -22,10 +22,10 @@ class NikController extends Controller
 
         $nik = $request->nik;
 
-        // Ekstraksi kode wilayah
+        // Ekstraksi kode wilayah (Format DB Kemendagri menggunakan titik: 35.27.12)
         $provCode = substr($nik, 0, 2);
-        $regCode = substr($nik, 0, 4);
-        $distCode = substr($nik, 0, 6);
+        $regCode = substr($nik, 0, 2) . '.' . substr($nik, 2, 2);
+        $distCode = substr($nik, 0, 2) . '.' . substr($nik, 2, 2) . '.' . substr($nik, 4, 2);
 
         // Ekstraksi tanggal lahir
         $dd = (int) substr($nik, 6, 2);
@@ -59,8 +59,11 @@ class NikController extends Controller
             'date_of_birth' => $dob,
             'region' => [
                 'province' => $province ? $province->name : null,
+                'province_code' => $province ? $province->code : null,
                 'regency' => $regency ? $regency->name : null,
+                'regency_code' => $regency ? $regency->code : null,
                 'district' => $district ? $district->name : null,
+                'district_code' => $district ? $district->code : null,
             ]
         ]);
     }
