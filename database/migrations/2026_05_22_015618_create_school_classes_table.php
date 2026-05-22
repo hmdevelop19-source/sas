@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->nullOnDelete();
             $table->string('name'); // e.g., 10 RPL 1
             $table->integer('grade'); // 10, 11, 12
             $table->timestamps();

@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_class_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('village_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('name');
-            $table->string('nis')->unique();
+            $table->foreignId('education_id')->nullable()->constrained('education')->nullOnDelete();
+            $table->foreignId('occupation_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('nkk', 16)->nullable();
             $table->string('nik', 16)->unique()->nullable();
-            $table->enum('gender', ['L', 'P']);
+            $table->string('name');
+            $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('place_of_birth')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('religion')->nullable();
             $table->string('blood_type')->nullable();
             $table->string('citizenship')->default('WNI');
+            $table->string('phone')->nullable();
+            $table->string('relationship')->nullable(); // e.g., Ayah, Ibu, Wali
             $table->text('address')->nullable();
             $table->timestamps();
         });
@@ -34,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('guardians');
     }
 };

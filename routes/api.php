@@ -16,4 +16,7 @@ Route::prefix('v1')->group(function () {
     // Students routes
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/warnings', [StudentController::class, 'warnings']);
+
+    // Utils
+    Route::get('/utils/parse-nik', [\App\Http\Controllers\Api\NikController::class, 'parse']);
 });

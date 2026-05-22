@@ -22,4 +22,9 @@ class Student extends Model
     {
         return $this->hasMany(StudentWarning::class);
     }
+
+    public function guardian()
+    {
+        return $this->hasOne(Guardian::class);
+    }
 }
