@@ -25,4 +25,11 @@ Route::prefix('v1')->group(function () {
     Route::get('/regions/regencies/{provinceCode}', [\App\Http\Controllers\Api\RegionController::class, 'regencies']);
     Route::get('/regions/districts/{regencyCode}', [\App\Http\Controllers\Api\RegionController::class, 'districts']);
     Route::get('/regions/villages/{districtCode}', [\App\Http\Controllers\Api\RegionController::class, 'villages']);
+    
+    // Master Data API
+    Route::get('/master/educations', [\App\Http\Controllers\Api\MasterDataController::class, 'educations']);
+    Route::get('/master/occupations', [\App\Http\Controllers\Api\MasterDataController::class, 'occupations']);
+    
+    // Guardian API
+    Route::get('/guardians/check', [\App\Http\Controllers\Api\GuardianController::class, 'check']);
 });
