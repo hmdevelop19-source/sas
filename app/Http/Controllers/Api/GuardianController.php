@@ -11,6 +11,12 @@ use App\Models\Regency;
 
 class GuardianController extends Controller
 {
+    public function index()
+    {
+        $guardians = Guardian::with(['education', 'occupation', 'students'])->get();
+        return response()->json(['data' => $guardians]);
+    }
+
     public function check(Request $request)
     {
         $request->validate([

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('village_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('education_id')->nullable()->constrained('education')->nullOnDelete();
             $table->foreignId('occupation_id')->nullable()->constrained()->nullOnDelete();

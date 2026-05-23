@@ -47,23 +47,9 @@ class DatabaseSeeder extends Seeder
         $class1 = \App\Models\SchoolClass::create(['department_id' => $dept1->id, 'teacher_id' => $teacher1->id, 'name' => '10 RPL 1', 'grade' => 10]);
 
         // Students
-        $student1 = \App\Models\Student::create([
-            'school_class_id' => $class1->id, 'name' => 'Budi Santoso', 'nis' => '1001', 'nik' => '3273010505100001',
-            'gender' => 'L', 'place_of_birth' => 'Bandung', 'date_of_birth' => '2010-05-05', 'village_id' => $vill->id
-        ]);
-        $student2 = \App\Models\Student::create([
-            'school_class_id' => $class1->id, 'name' => 'Siti Aminah', 'nis' => '1002', 'nik' => '3273014505100002',
-            'gender' => 'P', 'place_of_birth' => 'Cimahi', 'date_of_birth' => '2010-05-06', 'village_id' => $vill->id
-        ]);
+        // (Kosong, menunggu input real dari form)
 
         // Guardians
-        \App\Models\Guardian::create([
-            'student_id' => $student1->id, 'name' => 'Bapak Santoso', 'nkk' => '3273010000000001', 'nik' => '3273010101700001',
-            'phone' => '081234567890', 'relationship' => 'Ayah', 'village_id' => $vill->id, 'education_id' => $eduSMA->id, 'occupation_id' => $occWiraswasta->id
-        ]);
-        \App\Models\Guardian::create([
-            'student_id' => $student2->id, 'name' => 'Ibu Aminah', 'nkk' => '3273010000000002', 'nik' => '3273014101750002',
-            'phone' => '081298765432', 'relationship' => 'Ibu', 'village_id' => $vill->id, 'education_id' => $eduS1->id, 'occupation_id' => $occPNS->id
-        ]);
+        // (Kosong, menunggu input real dari form)
     }
 }

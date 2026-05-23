@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guardian extends Model
 {
-    protected $fillable = ['student_id', 'name', 'phone', 'relationship', 'address'];
+    protected $guarded = [];
 
-    public function student()
+    public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
+    }
+
+    public function education()
+    {
+        return $this->belongsTo(Education::class);
+    }
+
+    public function occupation()
+    {
+        return $this->belongsTo(Occupation::class);
     }
 }

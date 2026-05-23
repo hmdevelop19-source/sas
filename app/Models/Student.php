@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $fillable = ['school_class_id', 'name', 'nis', 'gender'];
+    protected $guarded = [];
 
     public function schoolClass()
     {
@@ -25,6 +25,6 @@ class Student extends Model
 
     public function guardian()
     {
-        return $this->hasOne(Guardian::class);
+        return $this->belongsTo(Guardian::class);
     }
 }

@@ -13,9 +13,10 @@ Route::prefix('v1')->group(function () {
     // Attendance routes
     Route::post('/attendances', [AttendanceController::class, 'store']);
     
-    // Students routes
-    Route::get('/students', [StudentController::class, 'index']);
-    Route::get('/warnings', [StudentController::class, 'warnings']);
+    // Students API
+    Route::get('/students', [\App\Http\Controllers\Api\StudentController::class, 'index']);
+    Route::post('/students', [\App\Http\Controllers\Api\StudentController::class, 'store']);
+    Route::get('/students/warnings', [\App\Http\Controllers\Api\StudentController::class, 'warnings']);
 
     // Utils
     Route::get('/utils/parse-nik', [\App\Http\Controllers\Api\NikController::class, 'parse']);
@@ -31,5 +32,6 @@ Route::prefix('v1')->group(function () {
     Route::get('/master/occupations', [\App\Http\Controllers\Api\MasterDataController::class, 'occupations']);
     
     // Guardian API
+    Route::get('/guardians', [\App\Http\Controllers\Api\GuardianController::class, 'index']);
     Route::get('/guardians/check', [\App\Http\Controllers\Api\GuardianController::class, 'check']);
 });
