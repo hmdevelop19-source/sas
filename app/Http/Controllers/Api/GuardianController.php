@@ -43,6 +43,55 @@ class GuardianController extends Controller
         ]);
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'data' => 'required|array',
+        ]);
+
+        $imported = 0;
+        $failed = 0;
+
+        foreach ($request->data as $item) {
+            // Minimal ada nama
+            if (empty($item['name'])) {
+                $failed++;
+                continue;
+            }
+
+            try {
+                // Gunakan NIK untuk cek duplikasi, jika tidak ada NIK, gunakan nama dan nomor HP
+                $nik = $item['nik'] ?? null;
+                
+                if ($nik) {
+                    Guardian::firstOrCreate(
+                        ['nik' => $nik],
+                        [
+                            'name' => $item['name'],
+                            'phone' => $item['phone'] ?? null,
+                            'relationship' => $item['relationship'] ?? 'Wali',
+                        ]
+                    );
+                } else {
+                    Guardian::firstOrCreate(
+                        ['name' => $item['name'], 'phone' => $item['phone'] ?? null],
+                        [
+                            'relationship' => $item['relationship'] ?? 'Wali',
+                        ]
+                    );
+                }
+                $imported++;
+            } catch (\Exception $e) {
+                $failed++;
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Berhasil mengimpor {$imported} wali. Gagal/Dilewati: {$failed} wali.",
+        ]);
+    }
+
     public function check(Request $request)
     {
         $request->validate([

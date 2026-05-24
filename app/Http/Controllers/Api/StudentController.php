@@ -121,6 +121,66 @@ class StudentController extends Controller
     }
 
     /**
+     * Import sekumpulan data siswa (Batch Insert)
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            'data' => 'required|array',
+        ]);
+
+        $imported = 0;
+        $failed = 0;
+
+        foreach ($request->data as $item) {
+            // Minimal ada nama dan nik
+            if (empty($item['name']) || empty($item['nik'])) {
+                $failed++;
+                continue;
+            }
+
+            // Normalisasi jenis kelamin (opsional)
+            $gender = 'L';
+            if (isset($item['gender']) && strtoupper(substr($item['gender'], 0, 1)) === 'P') {
+                $gender = 'P';
+            }
+
+            try {
+                $guardianId = null;
+                // Auto-link atau buat wali jika NIK Wali disediakan di Excel
+                if (!empty($item['guardian_nik'])) {
+                    $guardian = \App\Models\Guardian::firstOrCreate(
+                        ['nik' => $item['guardian_nik']],
+                        ['name' => !empty($item['guardian_name']) ? $item['guardian_name'] : 'Wali dari ' . $item['name']]
+                    );
+                    $guardianId = $guardian->id;
+                }
+
+                \App\Models\Student::firstOrCreate(
+                    ['nik' => $item['nik']],
+                    [
+                        'name' => $item['name'],
+                        'nis' => $item['nis'] ?? null,
+                        'gender' => $gender,
+                        'place_of_birth' => $item['place_of_birth'] ?? null,
+                        'date_of_birth' => $item['date_of_birth'] ?? null,
+                        'address' => $item['address'] ?? null,
+                        'guardian_id' => $guardianId,
+                    ]
+                );
+                $imported++;
+            } catch (\Exception $e) {
+                $failed++;
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Berhasil mengimpor {$imported} siswa. Gagal/Dilewati: {$failed} siswa.",
+        ]);
+    }
+
+    /**
      * Tampilkan data siswa beserta total Alpha dan SP berjalan.
      */
     public function index(Request $request)

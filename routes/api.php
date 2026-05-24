@@ -16,6 +16,7 @@ Route::prefix('v1')->group(function () {
     // Students API
     Route::get('/students', [\App\Http\Controllers\Api\StudentController::class, 'index']);
     Route::post('/students', [\App\Http\Controllers\Api\StudentController::class, 'store']);
+    Route::post('/students/import', [\App\Http\Controllers\Api\StudentController::class, 'import']);
     Route::get('/students/warnings', [\App\Http\Controllers\Api\StudentController::class, 'warnings']);
     Route::get('/students/{id}', [\App\Http\Controllers\Api\StudentController::class, 'show']);
     Route::put('/students/{id}', [\App\Http\Controllers\Api\StudentController::class, 'update']);
@@ -35,6 +36,7 @@ Route::prefix('v1')->group(function () {
     
     // Guardian API
     Route::get('/guardians', [\App\Http\Controllers\Api\GuardianController::class, 'index']);
+    Route::post('/guardians/import', [\App\Http\Controllers\Api\GuardianController::class, 'import']);
     Route::get('/guardians/check', [\App\Http\Controllers\Api\GuardianController::class, 'check']);
     Route::get('/guardians/{id}', [\App\Http\Controllers\Api\GuardianController::class, 'show']);
     Route::put('/guardians/{id}', [\App\Http\Controllers\Api\GuardianController::class, 'update']);
