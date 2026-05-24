@@ -35,9 +35,17 @@ Route::prefix('v1')->group(function () {
     Route::get('/master/occupations', [\App\Http\Controllers\Api\MasterDataController::class, 'occupations']);
     
     // Guardian API
+    // Guardian API
     Route::get('/guardians', [\App\Http\Controllers\Api\GuardianController::class, 'index']);
     Route::post('/guardians/import', [\App\Http\Controllers\Api\GuardianController::class, 'import']);
     Route::get('/guardians/check', [\App\Http\Controllers\Api\GuardianController::class, 'check']);
     Route::get('/guardians/{id}', [\App\Http\Controllers\Api\GuardianController::class, 'show']);
     Route::put('/guardians/{id}', [\App\Http\Controllers\Api\GuardianController::class, 'update']);
+
+    // Teachers API
+    Route::get('/teachers', [\App\Http\Controllers\Api\TeacherController::class, 'index']);
+    Route::post('/teachers', [\App\Http\Controllers\Api\TeacherController::class, 'store']);
+    Route::post('/teachers/import', [\App\Http\Controllers\Api\TeacherController::class, 'import']);
+    Route::get('/teachers/{id}', [\App\Http\Controllers\Api\TeacherController::class, 'show']);
+    Route::put('/teachers/{id}', [\App\Http\Controllers\Api\TeacherController::class, 'update']);
 });

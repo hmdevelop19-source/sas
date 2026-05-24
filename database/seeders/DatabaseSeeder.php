@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $teacher1 = \App\Models\Teacher::create([
             'nip' => '198001012005011001', 'name' => 'Ahmad Suhendra, S.Pd', 'nik' => '3273010101800001',
             'gender' => 'L', 'place_of_birth' => 'Bandung', 'date_of_birth' => '1980-01-01',
-            'religion' => 'Islam', 'blood_type' => 'O', 'village_id' => $vill->id, 'education_id' => $eduS1->id, 'occupation_id' => $occPNS->id
+            'blood_type' => 'O', 'village_id' => $vill->id, 'education_id' => $eduS1->id
         ]);
 
         // Department
