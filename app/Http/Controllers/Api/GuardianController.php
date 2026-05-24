@@ -17,6 +17,32 @@ class GuardianController extends Controller
         return response()->json(['data' => $guardians]);
     }
 
+    public function show($id)
+    {
+        $guardian = Guardian::with(['education', 'occupation', 'students'])->findOrFail($id);
+        return response()->json(['data' => $guardian]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $guardian = Guardian::findOrFail($id);
+        
+        $request->validate([
+            'name' => 'required|string',
+            'nik' => 'required|string|size:16|unique:guardians,nik,' . $id,
+        ]);
+
+        $guardian->update($request->only([
+            'name', 'nik', 'gender', 'date_of_birth', 'phone', 'relationship', 'education_id', 'occupation_id'
+        ]));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data wali berhasil diperbarui.',
+            'data' => $guardian
+        ]);
+    }
+
     public function check(Request $request)
     {
         $request->validate([

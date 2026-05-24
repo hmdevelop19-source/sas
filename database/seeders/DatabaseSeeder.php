@@ -11,6 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Admin User
+        \App\Models\User::firstOrCreate(
+            ['email' => 'admin@sas.com'],
+            [
+                'name' => 'Administrator',
+                'password' => bcrypt('password'),
+            ]
+        );
+
         // SpSettings
         \App\Models\SpSetting::create(['sp_level' => 1, 'max_alpha' => 3, 'description' => 'Surat Peringatan 1']);
         \App\Models\SpSetting::create(['sp_level' => 2, 'max_alpha' => 6, 'description' => 'Surat Peringatan 2']);
